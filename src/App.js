@@ -35,7 +35,7 @@ class App extends Component<
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="App-title">Welcome to wired-react</h1>
+                    <h1 className="App-title">Welcome to react-rewired</h1>
                 </header>
                 <button className="record" onClick={this.record} disabled={this.state.replaying}>
                     {this.state.recording && <span className="recording" />}

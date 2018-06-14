@@ -1,5 +1,5 @@
 /**
- * This file is part of wired-react which is released under MIT license.
+ * This file is part of react-rewired which is released under MIT license.
  *
  * The LICENSE file can be found in the root directory of this project.
  *

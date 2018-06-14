@@ -1,6 +1,6 @@
 {
   "name": "react-rewired",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "description": "Wire your react app as easy as possible",
   "main": "dist/index.js",
@@ -15,13 +15,13 @@
   ],
   "license": "MIT",
   "author": "Viktor Luft <viktor.luft@freiheit.com> (https://github.com/fdc-viktor-luft)",
-  "homepage": "https://fdc-viktor-luft.github.io/wired-react/",
+  "homepage": "https://fdc-viktor-luft.github.io/react-rewired/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fdc-viktor-luft/wired-react"
+    "url": "https://github.com/fdc-viktor-luft/react-rewired"
   },
   "bugs": {
-    "url": "https://github.com/fdc-viktor-luft/wired-react/issues"
+    "url": "https://github.com/fdc-viktor-luft/react-rewired/issues"
   },
   "scripts": {
     "start": "react-scripts start",

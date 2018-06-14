@@ -1,5 +1,53 @@
 body {
-  margin: 0;
+  margin: 0 1em;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+main {
+  min-height: 20em;
+  min-width: 20em;
+  background-color: beige;
+  margin: 1em 0;
+  border: 2px solid darkgreen;
+  border-radius: 1em;
+}
+
+span.recording {
+  width: 1em;
+  height: 1em;
+  border-radius: 0.5em;
+  background-color: darkred;
+  float: left;
+  margin-right: 0.5em;
+}
+
+span.replaying {
+  width: 1em;
+  height: 1em;
+  background-color: darkgreen;
+  float: left;
+  margin-right: 0.5em;
+}
+
+div.ball {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: darkred;
+  position: absolute;
+  transition: all 0.25s linear;
+}
+
+button {
+  margin-right: 1em;
+  padding: 0.4em;
+  border-radius: 0.5em;
+  border-color: darkgreen;
+  background-color: beige;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

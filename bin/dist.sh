@@ -6,10 +6,10 @@ set -eu
 rm -rf dist
 
 # use the same babel configurations as create-react-app
-NODE_ENV=production babel src/wired-react --out-dir dist
+NODE_ENV=production babel src/react-rewired --out-dir dist
 
 # generate flow source maps
-for i in `ls src/wired-react/`; do cp src/wired-react/$i dist/$i.flow; done
+for i in `ls src/react-rewired/`; do cp src/react-rewired/$i dist/$i.flow; done
 
 # remove redundant test files
 rm `ls dist/*.test.js*`

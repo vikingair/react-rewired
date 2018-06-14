@@ -10,4 +10,4 @@ import { WiredStoreUtil, type _WiredStore } from './wired-store';
 import { WiredRoot } from './wired-root';
 
 export type WiredStore<T: { [string]: any }> = _WiredStore<T>;
-export const Wire = { store: WiredStoreUtil.create, root: WiredRoot, leaf: WiredStoreUtil.leaf };
+export const Wired = { store: WiredStoreUtil.create, root: WiredRoot, leaf: WiredStoreUtil.leaf };

@@ -1,9 +1,9 @@
 // @flow
 
-import { Wire } from './wired-react';
+import { Wired } from './react-rewired';
 
-export const store = Wire.store({
-    ball: Wire.leaf({
+export const store = Wired.store({
+    ball: Wired.leaf({
         position: { top: 200, left: 200 },
         color: '#000000',
     }),

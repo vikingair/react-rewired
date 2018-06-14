@@ -1,6 +1,6 @@
 {
-  "name": "wired-react",
-  "version": "0.1.0",
+  "name": "react-rewired",
+  "version": "0.2.0",
   "private": false,
   "description": "Wire your react app as easy as possible",
   "main": "dist/index.js",
@@ -55,8 +55,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/wired-react/*.{js}",
-      "!src/wired-react/index.js"
+      "src/react-rewired/*.{js}",
+      "!src/react-rewired/index.js"
     ],
     "coverageReporters": [
       "lcov"

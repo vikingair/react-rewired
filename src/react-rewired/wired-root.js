@@ -13,7 +13,7 @@ type WiredRootProps<T> = { children: React$Node, store: _WiredStore<T> };
 type WiredRootState<T> = { data: T };
 export class WiredRoot<T: { [string]: any }> extends Component<WiredRootProps<T>, WiredRootState<T>> {
     setStore = <T>(d: SetFunctionParam<T>): void => {
-        WiredStoreUtil.internalSet(this.props.store, d);
+        WiredStoreUtil.internalSet(this.props.store, (d: any));
         this.setState({ data: this.props.store.data });
     };
     state: WiredRootState<T> = {

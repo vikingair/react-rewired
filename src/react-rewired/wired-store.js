@@ -9,19 +9,19 @@
 import React from 'react';
 import { WiredComponent } from './wired-component';
 
-export type SetFunctionParam<T> = { [$Keys<T>]: any } | (T => { [$Keys<T>]: any });
+export type SetFunctionParam<T> = $Shape<T> | (T => $Shape<T>);
 type SetFunction<T> = (SetFunctionParam<T>) => void;
 
 export type _WiredStore<T: { [string]: any }> = {
     set: SetFunction<T>,
     data: T,
     context: any,
-    wire: (Func: React$ComponentType<*>, storeToProps: Function) => any,
+    wire: (Func: React$ComponentType<*>, storeToProps: (T) => *) => any,
 };
 
 const leafSymbol: any = Symbol.for('__WIRE_LEAF__');
 
-export const leaf = <T: { [string]: any }>(data: T): T => {
+export const leaf = <T: { [string]: any }>(data: T): $Shape<T> => {
     data[leafSymbol] = true;
     return data;
 };

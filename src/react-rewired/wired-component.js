@@ -28,9 +28,10 @@ class Wired extends Component<WiredProps> {
     }
 }
 
-const wireWith = (context: any) => (component: React$ComponentType<*>, storeToProps: Object => Object) => () => {
-    const Consumer = context.Consumer;
-    return <Consumer>{store => <Wired w={storeToProps(store)} c={component} />}</Consumer>;
+const wireWith = (Context: any) => {
+    return <T>(component: React$ComponentType<*>, storeToProps: T => Object) => () => {
+        return <Context.Consumer>{store => <Wired w={storeToProps(store)} c={component} />}</Context.Consumer>;
+    };
 };
 
 export const WiredComponent = { wireWith, _shouldComponentUpdate, Wired };

@@ -1,6 +1,6 @@
 {
   "name": "react-rewired",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": false,
   "description": "Wire your react app as easy as possible",
   "main": "dist/index.js",

@@ -15,7 +15,7 @@ class App extends Component<
 > {
     state = { recording: false, replaying: false, recorded: [] };
     delegateBall = (event: any) => {
-        const nextPosition = { top: event.clientY, left: event.clientX };
+        const nextPosition = { top: event.clientY + window.scrollY, left: event.clientX + window.scrollX };
         if (this.state.recording) this.setState(state => ({ recorded: [...state.recorded, nextPosition] }));
         store.set({ ball: { position: nextPosition } });
     };

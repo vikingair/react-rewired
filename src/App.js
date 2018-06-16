@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Ball } from './Ball';
-import { store } from './store';
+import { Store } from './store';
 import { DisplayValues } from './DisplayValues';
 
 const randomColor = () => '#xxxxxx'.replace(/x/g, () => Math.floor(Math.random() * 16).toString(16));
@@ -17,20 +17,20 @@ class App extends Component<
     delegateBall = (event: any) => {
         const nextPosition = { top: event.clientY + window.scrollY, left: event.clientX + window.scrollX };
         if (this.state.recording) this.setState(state => ({ recorded: [...state.recorded, nextPosition] }));
-        store.set({ ball: { position: nextPosition } });
+        Store.set({ ball: { position: nextPosition } });
     };
     record = () => this.setState(state => ({ recording: !state.recording }));
     replay = () => {
         if (this.state.recorded.length) {
             this.setState({ replaying: true });
             this.state.recorded.forEach((v, i) =>
-                window.setTimeout(() => store.set({ ball: { position: v, color: randomColor() } }), i * 500)
+                window.setTimeout(() => Store.set({ ball: { position: v, color: randomColor() } }), i * 500)
             );
             window.setTimeout(() => this.setState({ replaying: false }), this.state.recorded.length * 500);
         }
     };
     deleteRecords = () => this.state.recorded.length && this.setState({ recorded: [] });
-    changeColor = () => store.set({ ball: { color: randomColor() } });
+    changeColor = () => Store.set({ ball: { color: randomColor() } });
     render() {
         return (
             <div className="App">
@@ -56,7 +56,7 @@ class App extends Component<
                         <Ball />
                     </div>
                 </main>
-                <DisplayValues data={store.data} />
+                <DisplayValues />
             </div>
         );
     }

@@ -2,12 +2,15 @@
 
 import { Wired } from './react-rewired';
 
-export const store = Wired.store({
-    ball: Wired.leaf({
-        position: { top: 200, left: 200 },
-        color: '#000000',
-    }),
+type BallState = { position: { top: number, left: number }, color: string };
+const ballInitialState: BallState = { position: { top: 200, left: 200 }, color: '#000000' };
+
+export type State = {
+    ball: BallState,
+};
+
+export const Store = Wired.store({
+    ball: Wired.node(ballInitialState),
 });
 
-window.store = store;
-export type State = typeof store.data;
+window.Store = Store;

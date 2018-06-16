@@ -8,7 +8,7 @@
 
 import React from 'react';
 import './DisplayValues.css';
-import { store } from './store';
+import { Store } from './store';
 import type { State } from './store';
 
 const sanitize = (str: string): string => {
@@ -19,7 +19,7 @@ const span = (className: string, value: string): string => `<span class="${class
 
 const withMargin = (innerHTML: string): string => `<div class="ml-3"><p>${innerHTML}</p></div>`;
 
-const _htmlForObject = (o: { [string]: mixed }, firstValueOverride: boolean = true): string => {
+const _htmlForObject = (o: Object, firstValueOverride: boolean = true): string => {
     let result = '';
     let firstValue = firstValueOverride;
     for (let key in o) {
@@ -58,9 +58,9 @@ const _htmlForObject = (o: { [string]: mixed }, firstValueOverride: boolean = tr
     return result;
 };
 
-const htmlForObject = (o: { [string]: mixed }): string => `<p>{</p>${withMargin(_htmlForObject(o))}</p>}`;
+const htmlForObject = (o: State): string => `<p>{</p>${withMargin(_htmlForObject(o))}</p>}`;
 
-export const DisplayValues = store.wire(
+export const DisplayValues = Store.wire(
     ({ data }) => (
         <pre>
             <code dangerouslySetInnerHTML={{ __html: htmlForObject(data) }} />

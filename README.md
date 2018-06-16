@@ -30,30 +30,32 @@ very fast too large with all the overhead, that comes with actions and reducers.
 Also it is always quite an act to implement `flow` on top of `react-redux`.
 
 ## How to - an example
-First of all you need to initialize your store with some defaults.
+First of all you need to initialize your `Store` with some defaults.
 ```js
 import { Wired } from 'react-rewired';
 
-const store = Wired.store({
+const Store = Wired.store({
     num: 12,
     data: { keys: [] }
     foo: undefined
 })
 ```
-You also need to define the type for your `State` to tell `flow` that
+You should also define the types for your `State` to tell `flow` that
 e.g. the array on `data.keys` contains only strings.
 ```js
+type DataState = { keys: string[] };
 type State = {
     num: number,
-    data: { keys: string[] }
+    data: DataState,
     foo?: string
 };
 
-const store = Wired.store(({
-    num: 12,
-    data: { keys: [] }
-    foo: undefined
-}: State))
+const data: DataState = { keys: [] }; // you can directly type cast
+const Store = Wired.store({
+    num: 12, // here flow is able to infer the type directly
+    data,
+    foo: (undefined: string | void) // you may type cast directly inline
+})
 ```
 The next step is the wrapping of your react tree with the context provider
 to be able to access the data within any component of the subtree.
@@ -61,9 +63,9 @@ to be able to access the data within any component of the subtree.
 const root = document.getElementById('root');
 root &&
     ReactDOM.render(
-        <Wired.root store={store}>
+        <Store.root>
             <App />
-        </Wired.root>,
+        </Store.root>,
         root
     );
 ```
@@ -72,7 +74,7 @@ corresponding consumer.
 ```js
 const MyComponent = ({ key, odd }: { key?: string, odd: boolean }) => <JSX />
 // and not wire it
-const MyWiredComponent = store.wire(
+const MyWiredComponent = Store.wire(
     MyComponent,
     state => ({
         key: state.data.keys[0],
@@ -86,46 +88,35 @@ can perform those updates. Just like `setState` on internal react state.
 // simply return those keys you want to update with the new data
 // they will be merged and component updates will only be propagated
 // to those components who listen to those data points
-store.set({ num: 13, foo: 'bar' });
+Store.set({ num: 13, foo: 'bar' });
 // MyWiredComponent would update after this change
 // because the value of "odd" changed from "false" to "true"
 
 // return a function which will be called with the current state
-store.set(state => ({ num: 3 * state.num })); // num = 3 * 13 = 39
+Store.set(state => ({ num: 3 * state.num })); // num = 3 * 13 = 39
 // MyWiredComponent would NOT update after this change
 // because the values of "odd" and "key" did not change
 ```
 Additionally you can perform shallow merges in deeply nested structures
-with `Wired.leaf`. With it you may mark the provided object to be another
+with `Wired.node`. With it you may mark the provided object to be another
 shallow updatable object. Another example:
 ```js
+type DataState = { keys: string[], foo?: string };
 type State = {
     num: number,
-    dataAsLeaf: {
-        keys: string[],
-        foo?: string
-    },
-    dataAsObject: {
-        keys: string[],
-        foo?: string
-    }
+    dataAsNode: DataState,
+    dataAsObject: DataState
 };
-
+const data: DataState = { keys: [], foo: undefined };
 const store = Wired.store(({
     num: 12,
-    dataAsLeaf: Wired.leaf({
-        keys: []
-        foo: undefined
-    })
-    dataAsObject: {
-        keys: []
-        foo: undefined
-    }
+    dataAsNode: Wired.node(data)
+    dataAsObject: data
 }: State))
 ```
-Now `dataAsLeaf` is wired leaf, which means that you can do the following:
+Now `dataAsNode` is a wired node, which means that you can do the following:
 ```js
-store.set({dataAsLeaf: { foo: 'bar' }}); // does not affect dataAsLeaf.keys
+store.set({dataAsNode: { foo: 'bar' }}); // does not affect dataAsNode.keys
 
 store.set({dataAsObject: { foo: 'bar' }}); // flow error because keys were required AND dataAsObject.keys would be lost
 ```
@@ -136,7 +127,7 @@ Therefore it is also possible to make nested updated statement like this:
 store.set({ data: { user: { login: { email: 'some@mail.com' } } } });
 
 // and this would affect ONLY the email if data, user and login
-// would have been leafs instead of objects.
+// would have been nodes instead of objects.
 ```
 
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg

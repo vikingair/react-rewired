@@ -12,9 +12,9 @@ describe('WiredStore', () => {
                     str: 'here',
                 },
                 array: ['there', 12],
-                leaf: WiredStoreUtil.leaf({
+                node: WiredStoreUtil.node({
                     not: 'visible',
-                    as: 'leaf',
+                    as: 'node',
                 }),
             }: any) // we need to manipulate flow, because else we can do illegal things in the tests
         );
@@ -28,9 +28,9 @@ describe('WiredStore', () => {
                 str: 'here',
             },
             array: ['there', 12],
-            leaf: {
+            node: {
                 not: 'visible',
-                as: 'leaf',
+                as: 'node',
             },
         });
     });
@@ -48,14 +48,14 @@ describe('WiredStore', () => {
     it('updates store data with multiple updates on different types', () => {
         const store = getDummyStore();
 
-        store.set({ obj: { some: 'newObject' }, leaf: { as: 'new', unknown: 'ignored' }, array: [1337], num: 42 });
+        store.set({ obj: { some: 'newObject' }, node: { as: 'new', unknown: 'ignored' }, array: [1337], num: 42 });
 
         expect(store.data).toEqual({
             array: [1337], // completely new array
             bool: true, // old value
-            leaf: {
+            node: {
                 as: 'new', // new value
-                not: 'visible', // old value (ATTENTION: unknown was ignored, because any leaf behaves like root)
+                not: 'visible', // old value (ATTENTION: unknown was ignored, because any node behaves like root)
             },
             num: 42, // new value
             obj: { some: 'newObject' }, // completely new object
@@ -65,12 +65,12 @@ describe('WiredStore', () => {
     it('supports functional updates', () => {
         const store = getDummyStore();
 
-        store.set(state => ({ leaf: { as: 'new ' + state.leaf.as, unknown: 'ignored' } }));
+        store.set(state => ({ node: { as: 'new ' + state.node.as, unknown: 'ignored' } }));
 
         expect(store.data).toEqual({
             array: ['there', 12],
             bool: true,
-            leaf: { as: 'new leaf', not: 'visible' },
+            node: { as: 'new node', not: 'visible' },
             num: 12,
             obj: { str: 'here' },
         });

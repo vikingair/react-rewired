@@ -38,8 +38,11 @@ class Wired<StoreProps: Object, OwnProps: Object> extends Component<WiredProps<S
 const wireWith = (Context: any) => <State, StoreProps: Object, OwnProps: Object>(
     component: UnwiredComponent<StoreProps, OwnProps>,
     storeToProps: State => StoreProps
-): React$ComponentType<OwnProps> => (p: OwnProps) => (
-    <Context.Consumer>{store => <Wired p={p} w={storeToProps(store)} C={component} />}</Context.Consumer>
-);
+): React$ComponentType<OwnProps> => {
+    const WiredComponent = (p: OwnProps) => (
+        <Context.Consumer>{store => <Wired p={p} w={storeToProps(store)} C={component} />}</Context.Consumer>
+    );
+    return WiredComponent; // name for react dev tool
+};
 
 export const WiredComponent = { wireWith, _shouldComponentUpdate, Wired };

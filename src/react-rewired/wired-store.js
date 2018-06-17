@@ -19,7 +19,7 @@ export type _WiredStore<State: Object> = {
     data: State,
     root: Root,
     wire: <StoreProps: Object, OwnProps: Object>(
-        Func: UnwiredComponent<StoreProps, OwnProps>,
+        component: UnwiredComponent<StoreProps, OwnProps>,
         storeToProps: (State) => StoreProps
     ) => React$ComponentType<OwnProps>,
 };

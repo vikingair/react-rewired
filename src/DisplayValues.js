@@ -60,11 +60,10 @@ const _htmlForObject = (o: Object, firstValueOverride: boolean = true): string =
 
 const htmlForObject = (o: State): string => `<p>{</p>${withMargin(_htmlForObject(o))}</p>}`;
 
-export const DisplayValues = Store.wire(
-    ({ data }) => (
-        <pre>
-            <code dangerouslySetInnerHTML={{ __html: htmlForObject(data) }} />
-        </pre>
-    ),
-    (state: State) => ({ data: state })
+const DisplayValues$Component = ({ data }) => (
+    <pre>
+        <code dangerouslySetInnerHTML={{ __html: htmlForObject(data) }} />
+    </pre>
 );
+
+export const DisplayValues = Store.wire(DisplayValues$Component, (state: State) => ({ data: state }));

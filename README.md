@@ -70,7 +70,10 @@ root &&
     );
 ```
 To access the data within your component you want to wrap it into the
-corresponding consumer.
+corresponding consumer. (Hint: You should not define react components
+inline but give it a name, because the react dev tools uses that name as
+display name as default. E.g. in the following snippet "MyComponent" will
+be displayed inside the react dev tools)
 ```js
 const MyComponent = ({ key, odd }: { key?: string, odd: boolean }) => <JSX />
 // and not wire it
@@ -129,6 +132,55 @@ store.set({ data: { user: { login: { email: 'some@mail.com' } } } });
 // and this would affect ONLY the email if data, user and login
 // would have been nodes instead of objects.
 ```
+
+## Known issues
+First of all I want to mention, that the production functionality is not
+(or at least should not be) affected by any issues and the project is
+still very new. I hope to find soon some solutions for some issues
+related mostly to `flow` issues, which were not even solved for `react-redux`.
+
+- It is necessary for wired **class components** to define the props as exact
+  type.
+```js
+class MyComponent extends Component<{| myProp: string |}> { ... }
+```
+- It is necessary for optional props to provide the key for this prop
+  either in returned object from `mapStateToProps` or whereever you use
+  the component.
+```js
+class MyComponent extends Component<{| myProp?: string, other: string |}> { ... }
+
+// Option 1:
+const MyWiredComponent = Store.wire(MyComponent, state => ({ myProp: undefined, other: state.foo }))
+const rendered = <JSX><MyWiredComponent /></JSX>;
+
+// Option 2:
+const MyWiredComponent = Store.wire(MyComponent, state => ({ other: state.foo }))
+const rendered = <JSX><MyWiredComponent myProp={undefined} /></JSX>;
+```
+- Currently **default props** are not correctly recognized on wired class
+  components. They are ignored since `React$ElementConfig` which contains
+  the logic to calculate the props could not be connected without using
+  flow type inference which would simply detroy everything. That is why
+  `react-redux` types within `flow-typed` does not work properly.
+```js
+class MyComponent extends Component<{| myProp: string |}> {
+    static defaultProps = { myProp: 'defined' };
+}
+```
+- For the time of this writing `enzyme` runs into internal errors, when
+  mounting any `Consumer` or `Provider` elements from the new context API.
+  Therefore you should insert a little snippet into your `setupTests.js`
+  (see `jest` option "setupTestFrameworkScriptFile")
+```js
+Store.set = (Component, mapStateToProps) => {
+    const result = props => <Component {...mapStateToProps(Store.data)} {...props} />;
+    result.displayName = `Wired(${Component.name})`;
+    return result;
+```
+- There are currently not any dev tools like the `redux` dev tool, but I
+  think the requirement is not as high as with `redux`. Later I might build
+  something.
 
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: https://github.com/fdc-viktor-luft/react-rewired/blob/master/LICENSE

@@ -32,6 +32,22 @@ describe('WiredComponent', () => {
         expect(wrapper.html()).toEqual('<div class="here"></div>');
     });
 
+    it('updates if changes were propagated to store before provider was initialized', () => {
+        const DummyStore = WiredStoreUtil.create({ testProp: 'here' });
+        const func = ({ myProp }: { myProp: string }) => <div className={myProp} />;
+        const Wired = DummyStore.wire(func, s => ({ myProp: s.testProp }));
+        const wrapper = shallow(
+            <DummyStore.root>
+                <Wired />
+            </DummyStore.root>
+        );
+        expect(wrapper.state().s.testProp).toBe('here');
+        wrapper.setState({ s: { testProp: 'foo' } });
+        expect(wrapper.state().s.testProp).toBe('foo');
+        wrapper.instance().componentDidMount();
+        expect(wrapper.state().s.testProp).toBe('here');
+    });
+
     it('updates only if required', () => {
         expect(WiredComponent._shouldComponentUpdate({}, {})).toBe(false);
         expect(WiredComponent._shouldComponentUpdate({ a: 'test', b: 12 }, { a: 'test', b: 12 })).toBe(false);

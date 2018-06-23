@@ -69,12 +69,16 @@ export const create = <State: Object>(initialData: State): _WiredStore<State> =>
 
 const rootFor = <State: Object>(Context: any, Store: _WiredStore<State>): Root =>
     class WiredRoot extends Component<RootProps, { s: State }> {
+        update = () => this.setState({ s: Store.data });
         setStore = <S>(d: SetFunctionParam<S>): void => {
             WiredStoreUtil.internalSet(Store, (d: any));
-            this.setState({ s: Store.data });
+            this.update();
         };
         state = { s: Store.data };
-        componentDidMount = () => (Store.set = this.setStore);
+        componentDidMount = () => {
+            Store.set = this.setStore;
+            if (Store.data !== this.state.s) this.update();
+        };
         render = () => <Context.Provider value={this.state.s}>{this.props.children}</Context.Provider>;
     };
 

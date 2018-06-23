@@ -41,7 +41,7 @@ const updateIfRequired = <State: Object>(prevData: State, nextData: Object): Sta
         const next = nextData[key];
         if (!(key in nextData) || prev === next) {
             result[key] = prev;
-        } else if (prev[nodeSymbol]) {
+        } else if (prev && prev[nodeSymbol]) {
             result[key] = node(updateIfRequired(prev, next));
         } else {
             result[key] = next;

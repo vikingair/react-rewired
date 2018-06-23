@@ -7,6 +7,7 @@ describe('WiredStore', () => {
         WiredStoreUtil.create(
             ({
                 num: 12,
+                some: (undefined: boolean | void),
                 bool: true,
                 obj: {
                     str: 'here',
@@ -65,10 +66,11 @@ describe('WiredStore', () => {
     it('supports functional updates', () => {
         const store = getDummyStore();
 
-        store.set(state => ({ node: { as: 'new ' + state.node.as, unknown: 'ignored' } }));
+        store.set(state => ({ node: { as: 'new ' + state.node.as, unknown: 'ignored' }, some: true }));
 
         expect(store.data).toEqual({
             array: ['there', 12],
+            some: true,
             bool: true,
             node: { as: 'new node', not: 'visible' },
             num: 12,

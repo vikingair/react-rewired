@@ -1,6 +1,6 @@
 {
   "name": "react-rewired",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "private": false,
   "description": "Wire your react app as easy as possible",
   "main": "dist/index.js",
@@ -46,12 +46,12 @@
     "enzyme-to-json": "^3.3.4",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
-    "flow-bin": "^0.73.0",
+    "flow-bin": "0.79.0",
     "prettier": "^1.13.4",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4",
-    "spy4js": "^1.3.3"
+    "spy4js": "^1.7.0"
   },
   "jest": {
     "collectCoverageFrom": [

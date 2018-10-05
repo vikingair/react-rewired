@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Spy } from 'spy4js';
 import { WiredComponent } from './wired-component';
 import { WiredStoreUtil } from './wired-store';
 
@@ -72,6 +73,27 @@ describe('WiredComponent', () => {
         DummyStore.set({ testProp: 'foo' });
         wrapper.update();
         expect(wrapper.html()).toEqual('<div class="foo"></div>');
+    });
+
+    it('does not update root state after unmount', () => {
+        const DummyStore = WiredStoreUtil.create({ testProp: 'here' });
+        const func = ({ myProp }) => <div className={myProp} />;
+        const Wired = DummyStore.wire(func, s => ({ myProp: s.testProp }));
+        const wrapper = shallow(
+            <DummyStore.root>
+                <Wired />
+            </DummyStore.root>
+        );
+        const setState = Spy.on(wrapper.instance(), 'setState');
+
+        DummyStore.set({ testProp: 'foo' });
+        setState.hasCallHistory({ s: { testProp: 'foo' } });
+
+        // now unmount
+        setState.reset();
+        wrapper.unmount();
+        DummyStore.set({ testProp: 'bar' });
+        setState.wasNotCalled();
     });
 
     it('updates component props only if necessary', () => {

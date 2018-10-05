@@ -35,7 +35,7 @@ class Wired<StoreProps: Object, OwnProps: Object> extends Component<WiredProps<S
     }
 }
 
-const wireWith = (Context: any) => <State, StoreProps: Object, OwnProps: Object>(
+const wireWith = (Context: any) => <State: Object, StoreProps: Object, OwnProps: Object>(
     component: UnwiredComponent<StoreProps, OwnProps>,
     storeToProps: State => StoreProps
 ): React$ComponentType<OwnProps> => {

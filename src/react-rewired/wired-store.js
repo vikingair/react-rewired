@@ -18,7 +18,7 @@ export type _WiredStore<State: Object> = {
     set: SetFunction<State>,
     data: State,
     root: Root,
-    wire: <StoreProps: Object, OwnProps: Object>(
+    wire: <State: Object, StoreProps: Object, OwnProps: Object>(
         component: UnwiredComponent<StoreProps, OwnProps>,
         storeToProps: (State) => StoreProps
     ) => React$ComponentType<OwnProps>,
@@ -69,7 +69,8 @@ export const create = <State: Object>(initialData: State): _WiredStore<State> =>
 
 const rootFor = <State: Object>(Context: any, Store: _WiredStore<State>): Root =>
     class WiredRoot extends Component<RootProps, { s: State }> {
-        update = () => this.setState({ s: Store.data });
+        m = true;
+        update = () => this.m && this.setState({ s: Store.data });
         setStore = <S>(d: SetFunctionParam<S>): void => {
             WiredStoreUtil.internalSet(Store, (d: any));
             this.update();
@@ -78,6 +79,9 @@ const rootFor = <State: Object>(Context: any, Store: _WiredStore<State>): Root =
         componentDidMount = () => {
             Store.set = this.setStore;
             if (Store.data !== this.state.s) this.update();
+        };
+        componentWillUnmount = () => {
+            this.m = false;
         };
         render = () => <Context.Provider value={this.state.s}>{this.props.children}</Context.Provider>;
     };

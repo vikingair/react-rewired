@@ -4,16 +4,17 @@ import React, { Component } from 'react';
 import { Ball } from './Ball';
 import { Store } from './store';
 import { DisplayValues } from './DisplayValues';
+import { RerenderCounter } from './RerenderCounter';
 
 const randomColor = () => '#xxxxxx'.replace(/x/g, () => Math.floor(Math.random() * 16).toString(16));
 
 const stopEventPropagation = event => event.stopPropagation();
 
-class App extends Component<
-    {},
-    { recording: boolean, replaying: boolean, recorded: Array<{ top: number, left: number }> }
-> {
-    state = { recording: false, replaying: false, recorded: [] };
+type AppProps = {||};
+type AppState = { recording: boolean, replaying: boolean, recorded: Array<{ top: number, left: number }> };
+
+export class App extends Component<AppProps, AppState> {
+    state: AppState = { recording: false, replaying: false, recorded: [] };
     delegateBall = (event: any) => {
         const nextPosition = { top: event.clientY + window.scrollY, left: event.clientX + window.scrollX };
         if (this.state.recording) this.setState(state => ({ recorded: [...state.recorded, nextPosition] }));
@@ -57,9 +58,8 @@ class App extends Component<
                     </div>
                 </main>
                 <DisplayValues />
+                <RerenderCounter name="App" />
             </div>
         );
     }
 }
-
-export default App;

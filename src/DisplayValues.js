@@ -9,7 +9,6 @@
 import React from 'react';
 import './DisplayValues.css';
 import { Store } from './store';
-import type { State } from './store';
 
 const sanitize = (str: string): string => {
     return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -58,12 +57,21 @@ const _htmlForObject = (o: Object, firstValueOverride: boolean = true): string =
     return result;
 };
 
-const htmlForObject = (o: State): string => `<p>{</p>${withMargin(_htmlForObject(o))}</p>}`;
+const htmlForObject = (o: Object): string => `<p>{</p>${withMargin(_htmlForObject(o))}</p>}`;
 
-const DisplayValues$Component = ({ data }) => (
+type DisplayValuesStoreProps = {| data: Object |};
+type DisplayValuesOwnProps = {||};
+type DisplayValuesProps = $Exact<{ ...DisplayValuesOwnProps, ...DisplayValuesStoreProps }>;
+
+const DisplayValuesContainer = ({ data }: DisplayValuesProps) => (
     <pre>
         <code dangerouslySetInnerHTML={{ __html: htmlForObject(data) }} />
     </pre>
 );
 
-export const DisplayValues = Store.wire(DisplayValues$Component, (state: State) => ({ data: state }));
+export const DisplayValues = Store.wire<DisplayValuesStoreProps, DisplayValuesOwnProps>(
+    DisplayValuesContainer,
+    state => ({
+        data: state,
+    })
+);

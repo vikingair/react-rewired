@@ -1,10 +1,10 @@
 // @flow
 
-import { WiredStoreUtil } from './wired-store';
+import { Wired } from './index';
 
 describe('WiredStore', () => {
     const getDummyStore = () =>
-        WiredStoreUtil.create(
+        Wired.store(
             ({
                 num: 12,
                 some: (undefined: boolean | void),
@@ -13,7 +13,7 @@ describe('WiredStore', () => {
                     str: 'here',
                 },
                 array: ['there', 12],
-                node: WiredStoreUtil.node({
+                node: Wired.node({
                     not: 'visible',
                     as: 'node',
                 }),
@@ -29,10 +29,10 @@ describe('WiredStore', () => {
                 str: 'here',
             },
             array: ['there', 12],
-            node: {
+            node: Wired.node({
                 not: 'visible',
                 as: 'node',
-            },
+            }),
         });
     });
 
@@ -54,10 +54,10 @@ describe('WiredStore', () => {
         expect(store.data).toEqual({
             array: [1337], // completely new array
             bool: true, // old value
-            node: {
+            node: Wired.node({
                 as: 'new', // new value
                 not: 'visible', // old value (ATTENTION: unknown was ignored, because any node behaves like root)
-            },
+            }),
             num: 42, // new value
             obj: { some: 'newObject' }, // completely new object
         });
@@ -72,7 +72,7 @@ describe('WiredStore', () => {
             array: ['there', 12],
             some: true,
             bool: true,
-            node: { as: 'new node', not: 'visible' },
+            node: Wired.node({ as: 'new node', not: 'visible' }),
             num: 12,
             obj: { str: 'here' },
         });

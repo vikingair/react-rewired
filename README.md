@@ -12,7 +12,7 @@ Wire your react app as easy as possible...
 - Feels more like react (using internal react state as base model)
 - `flow` typed out of the box
 - very small package size (1.4 kB gzipped)
-- high performant (statistics in comparison to `react-redux` will follow)
+- high performance (my stress test play ground in comparison to `react-redux` will be published soon - short summary: same performance as react-redux v5)
 
 ## Introduction
 
@@ -40,8 +40,10 @@ const Store = Wired.store({
     foo: undefined
 })
 ```
-You should also define the types for your `State` to tell `flow` that
-e.g. the array on `data.keys` contains only strings.
+You will also have to define the types for your `State` because the
+breaking change since `flow` reached version [0.85](https://github.com/facebook/flow/releases/tag/v0.85.0)
+requires to define any types in value position.
+Now let's e.g. define the array on `data.keys` to contain only strings.
 ```js
 type DataState = { keys: string[] };
 type State = {
@@ -51,12 +53,16 @@ type State = {
 };
 
 const data: DataState = { keys: [] }; // you can directly type cast
-const Store = Wired.store({
-    num: 12, // here flow is able to infer the type directly
+const Store = Wired.store<State>({
+    num: 12,
     data,
-    foo: (undefined: string | void) // you may type cast directly inline
+    foo: undefined
 })
 ```
+- HINT: Types in value position are still very new, but every flow-parser
+is able to handle those. If you run in troubles with those, you should
+maybe consider to update your dev dependencies.
+
 The next step is the wrapping of your react tree with the context provider
 to be able to access the data within any component of the subtree.
 ```js
@@ -70,14 +76,18 @@ root &&
     );
 ```
 To access the data within your component you want to wrap it into the
-corresponding consumer. (Hint: You should not define react components
+corresponding consumer. (HINT: You should not define react components
 inline but give it a name, because the react dev tools uses that name as
-display name as default. E.g. in the following snippet "MyComponent" will
+default display name. E.g. in the following snippet "MyComponent" will
 be displayed inside the react dev tools)
 ```js
-const MyComponent = ({ key, odd }: { key?: string, odd: boolean }) => <JSX />
+type MyComponentStoreProps = {| key?: string, odd: boolean |};
+type MyComponentOwnProps = {||};
+type MyComponentProps = {| ...MyComponentOwnProps, ...MyComponentStoreProps |};
+
+const MyComponent = ({ key, odd }: MyComponentProps) => <JSX />
 // and not wire it
-const MyWiredComponent = Store.wire(
+const MyWiredComponent = Store.wire<MyComponentStoreProps, MyComponentOwnProps>(
     MyComponent,
     state => ({
         key: state.data.keys[0],
@@ -85,6 +95,11 @@ const MyWiredComponent = Store.wire(
     })
 );
 ```
+- HINT: I want to stress out that your application will benefit a lot if
+you follow the above pattern everywhere. Also I want to strongly encourage
+you, to use always (if possible) exact prop types, to ensure that no arbitrary
+props will be provided where not expected.
+
 The last thing you have to know are state updates. There are two different ways you
 can perform those updates. Just like `setState` on internal react state.
 ```js
@@ -104,14 +119,16 @@ Additionally you can perform shallow merges in deeply nested structures
 with `Wired.node`. With it you may mark the provided object to be another
 shallow updatable object. Another example:
 ```js
+import { Store, type WiredNode } from 'react-rewired';
+
 type DataState = { keys: string[], foo?: string };
 type State = {
     num: number,
-    dataAsNode: DataState,
+    dataAsNode: WiredNode<DataState>,
     dataAsObject: DataState
 };
 const data: DataState = { keys: [], foo: undefined };
-const store = Wired.store(({
+const store = Wired.store<State>(({
     num: 12,
     dataAsNode: Wired.node(data)
     dataAsObject: data
@@ -140,22 +157,23 @@ still very new. I hope to find soon some solutions for some issues
 related mostly to `flow` issues, which were not even solved for `react-redux`.
 
 - It is necessary for wired **class components** to define the props as exact
-  type.
+  type. But maybe this is even good, since you should try to always use exact
+  prop types.
 ```js
 class MyComponent extends Component<{| myProp: string |}> { ... }
 ```
 - It is necessary for optional props to provide the key for this prop
-  either in returned object from `mapStateToProps` or whereever you use
+  either in returned object from `mapStateToProps` or wherever you use
   the component.
 ```js
 class MyComponent extends Component<{| myProp?: string, other: string |}> { ... }
 
 // Option 1:
-const MyWiredComponent = Store.wire(MyComponent, state => ({ myProp: undefined, other: state.foo }))
+const MyWiredComponent = Store.wire<SP, OP>(MyComponent, state => ({ myProp: undefined, other: state.foo }))
 const rendered = <JSX><MyWiredComponent /></JSX>;
 
 // Option 2:
-const MyWiredComponent = Store.wire(MyComponent, state => ({ other: state.foo }))
+const MyWiredComponent = Store.wire<SP, OP>(MyComponent, state => ({ other: state.foo }))
 const rendered = <JSX><MyWiredComponent myProp={undefined} /></JSX>;
 ```
 - Currently **default props** are not correctly recognized on wired class
@@ -178,9 +196,6 @@ Store.set = (Component, mapStateToProps) => {
     result.displayName = `Wired(${Component.name})`;
     return result;
 ```
-- There are currently not any dev tools like the `redux` dev tool, but I
-  think the requirement is not as high as with `redux`. Later I might build
-  something.
 
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: https://github.com/fdc-viktor-luft/react-rewired/blob/master/LICENSE

@@ -6,7 +6,8 @@
     "prettier/react"
   ],
   "plugins": [
-    "prettier"
+    "prettier",
+    "flowtype"
   ],
   "rules": {
     "prettier/prettier": ["error", {

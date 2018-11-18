@@ -1,6 +1,6 @@
 {
   "name": "react-rewired",
-  "version": "0.5.3",
+  "version": "1.0.0",
   "private": false,
   "description": "Wire your react app as easy as possible",
   "main": "dist/index.js",
@@ -27,36 +27,40 @@
     "start": "react-scripts start",
     "docs": "react-scripts build && rm -rf docs && mv build docs",
     "dist": "bin/dist.sh",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "flow": "flow --quiet",
     "eslint": "eslint --cache --cache-location 'misc/.eslintcache' src/",
     "prettier": "prettier --config .prettierrc --write 'src/**/*.js'",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "peerDependencies": {
-    "react": ">= 16.2.0"
+    "react": ">= 16.6.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "coveralls": "^3.0.1",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "flow-bin": "0.79.0",
-    "prettier": "^1.13.4",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4",
-    "spy4js": "^1.7.0"
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "flow-bin": "^0.86.0",
+    "prettier": "^1.15.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "^2.1.1",
+    "spy4js": "^1.9.1"
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/react-rewired/*.{js}",
-      "!src/react-rewired/index.js"
+      "src/react-rewired/*.{js}"
     ],
     "coverageReporters": [
       "lcov"
@@ -71,16 +75,27 @@
     }
   },
   "babel": {
+    "comments": false,
     "presets": [
-      "react-app",
+      "@babel/preset-react",
+      "@babel/preset-flow",
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
             "node": "8"
           }
         }
       ]
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

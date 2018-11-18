@@ -11,7 +11,7 @@ Wire your react app as easy as possible...
 - A good alternative to `react-redux`
 - Feels more like react (using internal react state as base model)
 - `flow` typed out of the box
-- very small package size (1.4 kB gzipped)
+- very small package size (v1.0.0 -> [848 B gzipped](https://bundlephobia.com/result?p=react-rewired@1.0.0))
 - high performance (my stress test play ground in comparison to `react-redux` will be published soon - short summary: same performance as react-redux v5)
 
 ## Introduction

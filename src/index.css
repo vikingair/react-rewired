@@ -51,3 +51,11 @@ button {
 button:disabled {
   cursor: not-allowed;
 }
+
+.perf-link {
+  padding: 1em;
+  background-color: green;
+  display: inline-block;
+  border-radius: 1em;
+  color: white;
+}

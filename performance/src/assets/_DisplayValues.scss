@@ -1,0 +1,43 @@
+pre {
+  font-weight: bold;
+  color: #4e3a0a;
+  background-color: #b9b9a6;
+  border: 2px solid darkgreen;
+  padding: 1em;
+  border-radius: 1em;
+  overflow: auto;
+  max-height: 30vh;
+  .prop { color: darkviolet }
+  .string { color: darkgreen }
+  .boolean { color: darkorange }
+  .null { color: darkred }
+  .undefined { color: darkred }
+  .number { color: blue }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 6px;
+    background-color: #F5F5F5;
+  }
+  &:hover::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #F5F5F5;
+  }
+  &::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: darkgreen;
+  }
+  p {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+  }
+}
+
+.ml-3 {
+  margin-left: 1em;
+}

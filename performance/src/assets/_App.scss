@@ -1,0 +1,53 @@
+.App {
+  header {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #4e3a0a;
+    box-shadow: 0 0.25em 0.5em black;
+    height: 2em;
+    padding-top: 0.5em;
+  }
+  .rewired,.redux {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(50% - 1px);
+    min-height: calc(100vh - 3.75em);
+    > div {
+      padding: 1em;
+      .as-bg {
+        position: fixed;
+        text-align: center;
+        z-index: -1;
+        opacity: 0.1;
+        font-size: 5em;
+        font-weight: bold;
+        bottom: 0;
+      }
+    }
+  }
+  nav {
+    position: absolute;
+    left: 1em;
+    .menu {
+      padding: 0.25em 1em;
+      position: absolute;
+      background-color: #353535;
+      top: 2em;
+      border-radius: 0.5em;
+      font-size: 0.75em;
+      box-shadow: 4px 4px 4px black;
+      white-space: nowrap;
+      .route {
+        margin: 0.75em 0;
+        cursor: pointer;
+        &.current {
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+  .rewired {
+    border-right: 2px solid #baceec;
+  }
+}

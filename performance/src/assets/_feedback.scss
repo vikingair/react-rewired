@@ -1,0 +1,14 @@
+.redux-feedback,.rewired-feedback {
+  .feedback {
+    text-align: center;
+  }
+  .status {
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    font-size: 4em;
+    > span {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "rewired-vs-redux",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://fdc-viktor-luft.github.io/react-rewired/performance/",
+  "dependencies": {
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-redux": "^5.1.0",
+    "react-rewired": "^1.0.0",
+    "react-scripts": "2.1.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eslint": "eslint --cache --cache-location 'misc/.eslintcache' src/"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "enzyme-to-json": "^3.3.4",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "flow-bin": "^0.86.0",
+    "node-sass": "^4.10.0",
+    "prettier": "^1.15.1",
+    "spy4js": "^2.1.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/rewired/RewiredOneInput.{js,jsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
+  }
+}

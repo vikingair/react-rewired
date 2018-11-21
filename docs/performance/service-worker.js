@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-rewired/precache-manifest.2ed6ff8e3ae41a8ea0e0c051edf29b69.js"
+  "/react-rewired/performance/precache-manifest.59e5aaabb9d12210ce3dac4873394d8c.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/react-rewired/index.html", {
+workbox.routing.registerNavigationRoute("/react-rewired/performance/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

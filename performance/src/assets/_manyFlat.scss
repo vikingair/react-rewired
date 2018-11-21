@@ -1,0 +1,17 @@
+.many-flat {
+  text-align: center;
+  .key-and-num {
+    font-size: 2em;
+    display: inline-block;
+    width: 50%;
+  }
+  button {
+    width: 40%;
+    padding: 0.5em;
+    border: none;
+    background-color: #67bb2f;
+    border-radius: 0.5em;
+    outline: 0;
+    margin-top: 2em;
+  }
+}

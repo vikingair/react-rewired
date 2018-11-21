@@ -59,6 +59,9 @@ export class App extends Component<AppProps, AppState> {
                 </main>
                 <DisplayValues />
                 <RerenderCounter name="App" />
+                <a className="perf-link" href="/react-rewired/performance/">
+                    Performance comparison to Redux
+                </a>
             </div>
         );
     }

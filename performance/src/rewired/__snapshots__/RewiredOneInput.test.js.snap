@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RewiredOneInputContainer applies value and color to the output 1`] = `
+<div
+  className="one-input"
+>
+  <Wired(DisplayValues) />
+  <input
+    id="rewired-input"
+    onChange={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#abcdef",
+      }
+    }
+    type="text"
+    value="test-value"
+  />
+  <ButtonChangeX
+    inputId="rewired-input"
+    times={5000}
+  />
+</div>
+`;

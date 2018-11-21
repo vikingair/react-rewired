@@ -25,7 +25,7 @@ let renderCounter = 0;
 export const ReduxManyComponentsContainer = ({ update }: ReduxManyComponentsProps) => (
     <div className="many-components">
         <ManyComponents />
-        <StressTest.ButtonDoX onClick={update} times={500} />
+        <StressTest.ButtonDoX onClick={update} times={10000} />
         <div className="render-counter">{++renderCounter}</div>
     </div>
 );

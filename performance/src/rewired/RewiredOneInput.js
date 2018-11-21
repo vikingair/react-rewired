@@ -25,7 +25,7 @@ export const RewiredOneInputContainer = ({ value, color }: RewiredOneInputProps)
             style={{ backgroundColor: color }}
             onChange={onChangeInput}
         />
-        <StressTest.ButtonChangeX inputId="rewired-input" times={5000} />
+        <StressTest.ButtonChangeX inputId="rewired-input" times={10000} />
     </div>
 );
 

@@ -10,7 +10,7 @@ let renderCounter = 0;
 const ReduxDeeplyNestedContainer = ({ num, update }: ReduxDeeplyNestedProps) => (
     <div className="deeply-nested">
         <div className="big-num">{num}</div>
-        <StressTest.ButtonDoX onClick={update} times={10000} />
+        <StressTest.ButtonDoX onClick={update} times={100000} />
         <div className="render-counter">{++renderCounter}</div>
     </div>
 );

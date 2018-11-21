@@ -15,7 +15,7 @@ let renderCounter = 0;
 const RewiredDeeplyNestedContainer = ({ num }: RewiredDeeplyNestedProps) => (
     <div className="deeply-nested">
         <div className="big-num">{num}</div>
-        <StressTest.ButtonDoX onClick={onClick} times={10000} />
+        <StressTest.ButtonDoX onClick={onClick} times={100000} />
         <div className="render-counter">{++renderCounter}</div>
     </div>
 );

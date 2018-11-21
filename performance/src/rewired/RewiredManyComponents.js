@@ -30,7 +30,7 @@ let renderCounter = 0;
 export const RewiredManyComponents = () => (
     <div className="many-components">
         <ManyComponents />
-        <StressTest.ButtonDoX onClick={onClick} times={500} />
+        <StressTest.ButtonDoX onClick={onClick} times={10000} />
         <div className="render-counter">{++renderCounter}</div>
     </div>
 );

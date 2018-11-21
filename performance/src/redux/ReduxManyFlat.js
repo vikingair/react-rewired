@@ -14,7 +14,7 @@ const ReduxManyFlatContainer = ({ manyFlat, update }: ReduxManyFlatProps) => (
                 {key}: {manyFlat[key]}
             </div>
         ))}
-        <StressTest.ButtonDoX onClick={update} times={2000} />
+        <StressTest.ButtonDoX onClick={update} times={50000} />
         <div className="render-counter">{++renderCounter}</div>
     </div>
 );

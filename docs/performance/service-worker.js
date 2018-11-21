@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-rewired/performance/precache-manifest.59e5aaabb9d12210ce3dac4873394d8c.js"
+  "/react-rewired/performance/precache-manifest.802bc7e4ab4af5444ec40cd2706e5038.js"
 );
 
 workbox.clientsClaim();

@@ -26,7 +26,7 @@ const RewiredManyFlatContainer = ({ manyFlat }: RewiredManyFlatProps) => (
                 {key}: {manyFlat[key]}
             </div>
         ))}
-        <StressTest.ButtonDoX onClick={onClick} times={2000} />
+        <StressTest.ButtonDoX onClick={onClick} times={50000} />
         <div className="render-counter">{++renderCounter}</div>
     </div>
 );

@@ -14,11 +14,3 @@ root &&
         </Store.root>,
         root
     );
-
-if (
-    window.navigator &&
-    window.navigator.serviceWorker &&
-    typeof window.navigator.serviceWorker.getRegistration === 'function'
-) {
-    window.navigator.serviceWorker.getRegistration('/react-rewired/').then(reg => reg && reg.unregister());
-}

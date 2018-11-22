@@ -21,3 +21,7 @@ mv performance/build/* build/performance/
 # update the docs folder
 rm -rf docs
 mv build docs
+
+# remove unused service workers (automatically reacted by CRA)
+rm -f docs/service-worker.js
+rm -f docs/performance/service-worker.js

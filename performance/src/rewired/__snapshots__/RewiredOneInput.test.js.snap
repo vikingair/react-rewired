@@ -18,7 +18,7 @@ exports[`RewiredOneInputContainer applies value and color to the output 1`] = `
   />
   <ButtonChangeX
     inputId="rewired-input"
-    times={5000}
+    times={10000}
   />
 </div>
 `;

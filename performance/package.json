@@ -37,7 +37,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/rewired/RewiredOneInput.{js,jsx}"
+      "src/rewired/RewiredOneInput.js",
+      "src/rewired/rewired-store.js"
     ],
     "coverageThreshold": {
       "global": {

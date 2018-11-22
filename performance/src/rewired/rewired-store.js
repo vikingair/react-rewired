@@ -8,9 +8,17 @@ const initialOneInput = {
     color: '#eeff8e',
 };
 
-const deeplyNested = Wired.node({
+type DeeplyNestedState = {
+    a: WiredNode<{
+        b: WiredNode<{ c: WiredNode<{ d: WiredNode<{ e: WiredNode<{ f: WiredNode<{ g: number }> }> }> }> }>,
+    }>,
+};
+
+export const deeplyNested = Wired.node<DeeplyNestedState>({
     a: Wired.node({
-        b: Wired.node({ c: Wired.node({ d: Wired.node({ e: Wired.node({ f: Wired.node({ g: 0 }) }) }) }) }),
+        b: Wired.node({
+            c: Wired.node({ d: Wired.node({ e: Wired.node({ f: Wired.node({ g: 0 }) }) }) }),
+        }),
     }),
 });
 

@@ -12,7 +12,7 @@ export const ReduxFeedback = () => (
         <h3>Performance for flat state</h3>
         <Feedback id="redux-performance-many-flat" />
         <h3>Performance for many connected components</h3>
-        <Feedback id="rewired-performance-many-components" />
+        <Feedback id="redux-performance-many-components" />
         <h3>Scalability</h3>
         <Feedback id="redux-scalability" />
         <h3>Developer experience</h3>

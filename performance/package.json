@@ -30,7 +30,7 @@
     "enzyme-to-json": "^3.3.4",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "flow-bin": "^0.86.0",
+    "flow-bin": "^0.87.0",
     "node-sass": "^4.10.0",
     "prettier": "^1.15.1",
     "spy4js": "^2.1.1"

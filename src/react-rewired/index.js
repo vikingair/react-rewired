@@ -17,7 +17,7 @@ type Root = React$ComponentType<RootProps>;
 
 export type WiredStore<State: Object> = {
     set: SetFunction<State>,
-    data: State,
+    get: void => State,
     root: Root,
     wire: <StoreProps: Object, OwnProps: Object>(
         component: UnwiredComponent<StoreProps, OwnProps>,
@@ -26,42 +26,45 @@ export type WiredStore<State: Object> = {
 };
 export type WiredNode<N: Object> = $Shape<N>;
 
-const nodeSymbol: any = Symbol.for('__WIRED_NODE__');
+const _symbol = (Symbol && Symbol.for) || String;
+const $$node: any = _symbol('__WIRED_NODE__');
+const $$data: any = _symbol('__WIRED_DATA__');
 
 const node = <N: Object>(data: N): WiredNode<N> => {
-    data[nodeSymbol] = true;
+    data[$$node] = true;
     return data;
 };
 
 // ATTENTION: No keys can be added afterwards. You need at least to initialize them with undefined
-const updateIfRequired = <State: Object>(prevData: State, nextData: Object): State => {
-    const result = {};
-    const keys = Object.keys(prevData);
+const _update = <State: Object>(p: State, n: Object): State => {
+    const r = {};
+    const keys = Object.keys(p);
     for (let index = 0; index < keys.length; index++) {
         const key = keys[index];
-        const prev = prevData[key];
-        const next = nextData[key];
-        if (!(key in nextData) || prev === next) {
-            result[key] = prev;
-        } else if (prev && prev[nodeSymbol]) {
-            result[key] = node(updateIfRequired(prev, next));
+        const prev = p[key];
+        const next = n[key];
+        if (!(key in n) || prev === next) {
+            r[key] = prev;
+        } else if (prev && prev[$$node]) {
+            r[key] = node(_update(prev, next));
         } else {
-            result[key] = next;
+            r[key] = next;
         }
     }
-    return (result: any);
+    return (r: any);
 };
 
-const internalSet = <State: Object>(Store: WiredStore<State>, param: Object | Function): void => {
-    const nextParams = typeof param === 'function' ? param(Store.data) : param;
-    Store.data = updateIfRequired(Store.data, nextParams);
+const _set = <State: Object>(s: WiredStore<State>, param: Object | Function): void => {
+    const nextParams = typeof param === 'function' ? param(s[$$data]) : param;
+    s[$$data] = _update(s[$$data], nextParams);
 };
 
 const store = <State: Object>(initialData: State): WiredStore<State> => {
     const Context = React.createContext(initialData);
     const s = {
-        set: (d: SetFunctionParam<State>): void => internalSet((s: any), d),
-        data: initialData,
+        set: (d: SetFunctionParam<State>): void => _set((s: any), d),
+        get: () => s[$$data],
+        [$$data]: initialData,
         root: ((undefined: any): Root), // little flow hack
         wire: <StoreProps: Object, OwnProps: Object>(
             Component: UnwiredComponent<StoreProps, OwnProps>,
@@ -81,15 +84,15 @@ const store = <State: Object>(initialData: State): WiredStore<State> => {
 const rootFor = <State: Object>(Context: any, Store: WiredStore<State>): Root =>
     class WiredRoot extends React.Component<RootProps, { s: State }> {
         m = true;
-        update = () => this.m && this.setState({ s: Store.data });
+        update = () => this.m && this.setState({ s: Store[$$data] });
         setStore = <S>(d: SetFunctionParam<S>): void => {
-            internalSet(Store, (d: any));
+            _set(Store, (d: any));
             this.update();
         };
-        state = { s: Store.data };
+        state = { s: Store[$$data] };
         componentDidMount = () => {
             Store.set = this.setStore;
-            if (Store.data !== this.state.s) this.update();
+            if (Store[$$data] !== this.state.s) this.update();
         };
         componentWillUnmount = () => {
             this.m = false;

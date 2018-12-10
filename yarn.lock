@@ -9525,10 +9525,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-spy4js@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/spy4js/-/spy4js-1.9.1.tgz#7e0f229ef8fceb11ba59f0a7452801a71a8a2e7a"
-  integrity sha512-3E2aOiByQ8hB9oChOIeLG3bWpfNocmBsVr3skZF9PZyEajsyH6t57uRHvYI+2XjDGvcrd9AlUm9GRn3kT2QVeQ==
+spy4js@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/spy4js/-/spy4js-2.3.1.tgz#e459038144004ca6065222d11bbdb37a52d7fcf7"
+  integrity sha512-bOmfqa3mH3ZRlfDG3+2HTff0RP3UcBPnCQUHJgdRQP9PzRoCYmJyPcx6a2U2dFGMg/rkW7n324evbP7n9hHTZw==
   dependencies:
     serialize-as-code "^1.0.3"
 

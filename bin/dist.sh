@@ -10,6 +10,3 @@ NODE_ENV=production babel src/react-rewired --out-dir dist
 
 # generate flow source maps
 for i in `ls src/react-rewired/`; do cp src/react-rewired/$i dist/$i.flow; done
-
-# remove redundant test files
-rm `ls dist/*.test.js*`

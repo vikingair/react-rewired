@@ -149,6 +149,13 @@ store.set({ data: { user: { login: { email: 'some@mail.com' } } } });
 // and this would affect ONLY the email if data, user and login
 // would have been nodes instead of objects.
 ```
+If you want to access the data directly e.g. outside any component, you can
+do the following:
+```js
+const state = Store.get();
+```
+- ATTENTION: Modifications to the returned state can effect your application in
+             an unexpected way. Even if you know what you're doing, I do not recommend it.
 
 ## Known issues
 First of all I want to mention, that the production functionality is not
@@ -158,23 +165,10 @@ related mostly to `flow` issues, which were not even solved for `react-redux`.
 
 - It is necessary for wired **class components** to define the props as exact
   type. But maybe this is even good, since you should try to always use exact
-  prop types.
+  prop types. `flow` itself now tries to establish a new default, that makes all
+  objects rather exact than inexact.
 ```js
 class MyComponent extends Component<{| myProp: string |}> { ... }
-```
-- It is necessary for optional props to provide the key for this prop
-  either in returned object from `mapStateToProps` or wherever you use
-  the component.
-```js
-class MyComponent extends Component<{| myProp?: string, other: string |}> { ... }
-
-// Option 1:
-const MyWiredComponent = Store.wire<SP, OP>(MyComponent, state => ({ myProp: undefined, other: state.foo }))
-const rendered = <JSX><MyWiredComponent /></JSX>;
-
-// Option 2:
-const MyWiredComponent = Store.wire<SP, OP>(MyComponent, state => ({ other: state.foo }))
-const rendered = <JSX><MyWiredComponent myProp={undefined} /></JSX>;
 ```
 - Currently **default props** are not correctly recognized on wired class
   components. They are ignored since `React$ElementConfig` which contains
@@ -192,7 +186,7 @@ class MyComponent extends Component<{| myProp: string |}> {
   (see `jest` option "setupTestFrameworkScriptFile")
 ```js
 Store.set = (Component, mapStateToProps) => {
-    const result = props => <Component {...mapStateToProps(Store.data)} {...props} />;
+    const result = props => <Component {...mapStateToProps(Store.get())} {...props} />;
     result.displayName = `Wired(${Component.name})`;
     return result;
 ```

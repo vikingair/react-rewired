@@ -1,6 +1,6 @@
 // @flow
 
-import { Wired } from './index';
+import { Wired } from '../react-rewired';
 
 describe('WiredStore', () => {
     const getDummyStore = () =>
@@ -22,7 +22,7 @@ describe('WiredStore', () => {
 
     it('initializes the store', () => {
         const store = getDummyStore();
-        expect(store.data).toEqual({
+        expect(store.get()).toEqual({
             num: 12,
             bool: true,
             obj: {
@@ -38,12 +38,12 @@ describe('WiredStore', () => {
 
     it('updates store data with unknown key', () => {
         const store = getDummyStore();
-        const dataBefore = store.data;
+        const dataBefore = store.get();
 
         store.set({ unknownKey: 'foobar' });
 
-        expect(store.data).not.toBe(dataBefore); // but creates always a new object
-        expect(store.data).toEqual(dataBefore);
+        expect(store.get()).not.toBe(dataBefore); // but creates always a new object
+        expect(store.get()).toEqual(dataBefore);
     });
 
     it('updates store data with multiple updates on different types', () => {
@@ -51,7 +51,7 @@ describe('WiredStore', () => {
 
         store.set({ obj: { some: 'newObject' }, node: { as: 'new', unknown: 'ignored' }, array: [1337], num: 42 });
 
-        expect(store.data).toEqual({
+        expect(store.get()).toEqual({
             array: [1337], // completely new array
             bool: true, // old value
             node: Wired.node({
@@ -68,7 +68,7 @@ describe('WiredStore', () => {
 
         store.set(state => ({ node: { as: 'new ' + state.node.as, unknown: 'ignored' }, some: true }));
 
-        expect(store.data).toEqual({
+        expect(store.get()).toEqual({
             array: ['there', 12],
             some: true,
             bool: true,

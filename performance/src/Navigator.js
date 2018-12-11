@@ -22,7 +22,7 @@ export class Navigator extends Component<NavigatorProps, NavigatorState> {
         return (
             <nav>
                 <div className="icon" onClick={this.toggle}>
-                    Menü
+                    Menu
                 </div>
                 {open && (
                     <div className="menu">

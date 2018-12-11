@@ -29,6 +29,9 @@
   nav {
     position: absolute;
     left: 1em;
+    .icon {
+      cursor: pointer;
+    }
     .menu {
       padding: 0.25em 1em;
       position: absolute;

@@ -1,27 +1,18 @@
 #!/bin/bash
 
-set -eux
+set -eu
 
-# first clean up old files
-rm -rf build
+yarn run dist
 
-# build the app itself
-yarn run build
+node ./config/build-app.js
 
 # build the performance app
 pushd performance &>/dev/null
 rm -rf build
 yarn run build
+rm build/service-worker.js
 popd &>/dev/null
 
-# merge the built app into the overall built
-mkdir build/performance
-mv performance/build/* build/performance/
-
-# update the docs folder
-rm -rf docs
-mv build docs
-
-# remove unused service workers (automatically reacted by CRA)
-rm -f docs/service-worker.js
-rm -f docs/performance/service-worker.js
+# merge the built performance app into the overall built
+mkdir docs/performance
+mv performance/build/* docs/performance/

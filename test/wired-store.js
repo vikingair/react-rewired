@@ -1,6 +1,6 @@
 // @flow
 
-import { Wired } from '../react-rewired';
+import { Wired } from '../src';
 
 describe('WiredStore', () => {
     const getDummyStore = () =>

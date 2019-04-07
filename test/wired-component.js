@@ -3,7 +3,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Spy } from 'spy4js';
-import { Wired } from '../react-rewired';
+import { Wired } from '../src';
 
 describe('WiredComponent', () => {
     it('wires functional components', () => {

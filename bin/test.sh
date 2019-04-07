@@ -10,6 +10,11 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 echo ""
+echo -e "Running ${CYAN}distribution${NC}:"
+echo ""
+yarn run dist
+
+echo ""
 echo -e "Running ${CYAN}flow${NC}:"
 echo -e "${GREEN}"
 yarn --silent run flow

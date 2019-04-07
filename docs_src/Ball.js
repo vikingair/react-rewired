@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Store } from './store';
-import type { State } from './store';
+import { Store, type State } from './store';
 import { RerenderCounter } from './RerenderCounter';
 
 type BallStoreProps = {| color: string, top: number, left: number |};

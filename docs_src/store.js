@@ -1,6 +1,6 @@
 // @flow
 
-import { Wired, type WiredNode } from './react-rewired';
+import { Wired, type WiredNode } from '../dist/esm/index';
 
 type BallState = { position: { top: number, left: number }, color: string };
 const ballInitialState: BallState = { position: { top: 200, left: 200 }, color: '#000000' };

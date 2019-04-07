@@ -1,7 +1,7 @@
 // @flow
 
-import './wired-store-symbol-fallback';
-import { Wired } from '../react-rewired';
+import '../test_resources/wired-store-symbol-fallback';
+import { Wired } from '../src';
 
 describe('WiredStore - without Symbols', () => {
     const getDummyStore = () =>

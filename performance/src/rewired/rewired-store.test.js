@@ -5,7 +5,7 @@ import { Wired } from 'react-rewired';
 
 describe('RewiredStore', () => {
     it('initializes the RewiredStore', () => {
-        expect(RewiredStore.data).toEqual({
+        expect(RewiredStore.get()).toEqual({
             deeplyNested,
             liveCoding: Wired.node({}),
             manyComponents: 0,
@@ -43,6 +43,6 @@ describe('RewiredStore', () => {
 
     it('updates many components', () => {
         RewiredStore.set({ manyComponents: 1337 });
-        expect(RewiredStore.data.manyComponents).toBe(1337);
+        expect(RewiredStore.get().manyComponents).toBe(1337);
     });
 });

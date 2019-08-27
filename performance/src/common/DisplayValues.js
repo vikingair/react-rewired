@@ -19,6 +19,7 @@ const withMargin = (innerHTML: string): string => `<div class="ml-3"><p>${innerH
 const _htmlForObject = (o: Object, firstValueOverride: boolean = true): string => {
     let result = '';
     let firstValue = firstValueOverride;
+    // eslint-disable-next-line no-unused-vars
     for (let key in o) {
         if (o.hasOwnProperty(key)) {
             const value = o[key];

@@ -4,12 +4,12 @@
   "private": true,
   "homepage": "https://fdc-viktor-luft.github.io/react-rewired/performance/",
   "dependencies": {
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "react-redux": "^6.0.0",
-    "react-rewired": "^1.0.0",
-    "react-scripts": "2.1.1",
-    "redux": "^4.0.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
+    "react-rewired": "^2.0.1",
+    "react-scripts": "^3.1.1",
+    "redux": "^4.0.4",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
@@ -25,15 +25,15 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.7.0",
-    "enzyme-to-json": "^3.3.4",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "flow-bin": "^0.87.0",
-    "node-sass": "^4.10.0",
-    "prettier": "^1.15.1",
-    "spy4js": "^2.1.1"
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "flow-bin": "^0.106.2",
+    "node-sass": "^4.12.0",
+    "prettier": "^1.18.2",
+    "spy4js": "^2.6.1"
   },
   "jest": {
     "collectCoverageFrom": [

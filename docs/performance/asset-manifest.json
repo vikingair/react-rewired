@@ -1,13 +1,15 @@
 {
-  "main.css": "/react-rewired/performance/static/css/main.6660d858.chunk.css",
-  "main.js": "/react-rewired/performance/static/js/main.e7d72c8c.chunk.js",
-  "main.js.map": "/react-rewired/performance/static/js/main.e7d72c8c.chunk.js.map",
-  "static/js/1.4a385f4f.chunk.js": "/react-rewired/performance/static/js/1.4a385f4f.chunk.js",
-  "static/js/1.4a385f4f.chunk.js.map": "/react-rewired/performance/static/js/1.4a385f4f.chunk.js.map",
-  "runtime~main.js": "/react-rewired/performance/static/js/runtime~main.26c3a349.js",
-  "runtime~main.js.map": "/react-rewired/performance/static/js/runtime~main.26c3a349.js.map",
-  "static/css/main.6660d858.chunk.css.map": "/react-rewired/performance/static/css/main.6660d858.chunk.css.map",
-  "index.html": "/react-rewired/performance/index.html",
-  "precache-manifest.fcd18bc51e8242748556a77650ed7106.js": "/react-rewired/performance/precache-manifest.fcd18bc51e8242748556a77650ed7106.js",
-  "service-worker.js": "/react-rewired/performance/service-worker.js"
+  "files": {
+    "main.css": "/react-rewired/performance/static/css/main.4c0b6778.chunk.css",
+    "main.js": "/react-rewired/performance/static/js/main.65ac4bae.chunk.js",
+    "main.js.map": "/react-rewired/performance/static/js/main.65ac4bae.chunk.js.map",
+    "runtime~main.js": "/react-rewired/performance/static/js/runtime~main.dc536f76.js",
+    "runtime~main.js.map": "/react-rewired/performance/static/js/runtime~main.dc536f76.js.map",
+    "static/js/2.c891a82d.chunk.js": "/react-rewired/performance/static/js/2.c891a82d.chunk.js",
+    "static/js/2.c891a82d.chunk.js.map": "/react-rewired/performance/static/js/2.c891a82d.chunk.js.map",
+    "index.html": "/react-rewired/performance/index.html",
+    "precache-manifest.4808982eab08af4731581bce9a471720.js": "/react-rewired/performance/precache-manifest.4808982eab08af4731581bce9a471720.js",
+    "service-worker.js": "/react-rewired/performance/service-worker.js",
+    "static/css/main.4c0b6778.chunk.css.map": "/react-rewired/performance/static/css/main.4c0b6778.chunk.css.map"
+  }
 }

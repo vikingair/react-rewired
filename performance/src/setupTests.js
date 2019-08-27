@@ -15,7 +15,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 // rewired mock (btw: same is possible for redux)
 const StoreWireHandler = (store: *) => (Component, mapStateToProps) => {
-    const result = props => <Component {...mapStateToProps(store.data)} {...props} />;
+    const result = props => <Component {...mapStateToProps(store.get())} {...props} />;
     result.displayName = `Wired(${Component.name})`;
     return result;
 };

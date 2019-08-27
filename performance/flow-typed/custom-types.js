@@ -7,7 +7,10 @@ type Expect = {
     toMatchInlineSnapshot: any => void,
     toMatchSnapshot: any => void,
 };
-declare function expect(any): Expect;
+declare var expect: {
+    (any): Expect,
+    addSnapshotSerializer: Function,
+};
 declare function describe(string, Function): any;
 declare function it(string, Function): any;
 declare function afterEach(any): any;

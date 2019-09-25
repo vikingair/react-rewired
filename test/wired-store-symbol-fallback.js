@@ -14,27 +14,18 @@ describe('WiredStore - without Symbols', () => {
                     str: 'here',
                 },
                 array: ['there', 12],
-                node: Wired.node({
-                    not: 'visible',
-                    as: 'node',
-                }),
             }: any) // we need to manipulate flow, because else we can do illegal things in the tests
         );
 
     it('initializes the store', () => {
-        const store = getDummyStore();
-        expect(store.get()).toEqual({
+        const store: any = getDummyStore();
+        expect(store['__WIRED_DATA__']).toEqual({
             num: 12,
             bool: true,
             obj: {
                 str: 'here',
             },
             array: ['there', 12],
-            node: {
-                __WIRED_NODE__: true,
-                not: 'visible',
-                as: 'node',
-            },
         });
     });
 });

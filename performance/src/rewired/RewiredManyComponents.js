@@ -16,7 +16,7 @@ const RewiredComponentContainer = ({ name, num }: RewiredComponentProps) => (
     </div>
 );
 
-export const RewiredComponent = RewiredStore.wire<RewiredComponentStoreProps, RewiredComponentOwnProps>(
+const RewiredComponent = RewiredStore.wire<RewiredComponentStoreProps, RewiredComponentOwnProps>(
     RewiredComponentContainer,
     ({ manyComponents }) => ({ num: manyComponents })
 );

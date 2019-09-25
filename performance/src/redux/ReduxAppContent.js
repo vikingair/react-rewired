@@ -6,7 +6,7 @@ import { type RouteValue } from '../routes';
 import { ReduxDeeplyNested } from './ReduxDeeplyNested';
 import { ReduxFeedback } from './ReduxFeedback';
 import { ReduxManyFlat } from './ReduxManyFlat';
-import { ReduxManyComponents } from './ReduxManyComponents';
+import { ReduxManyComponentsSelector } from './ReduxManyComponentsSelector';
 
 type ReduxAppProps = {| current: RouteValue |};
 
@@ -19,7 +19,7 @@ export const ReduxAppContent = ({ current }: ReduxAppProps) => (
                 {current === 'one-input' && <ReduxOneInput />}
                 {current === 'deeply-nested' && <ReduxDeeplyNested />}
                 {current === 'many-flat' && <ReduxManyFlat />}
-                {current === 'many-components' && <ReduxManyComponents />}
+                {current === 'many-components' && <ReduxManyComponentsSelector />}
             </div>
         </div>
     </div>

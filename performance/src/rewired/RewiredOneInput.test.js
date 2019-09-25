@@ -25,7 +25,7 @@ describe('RewiredOneInputContainer', () => {
     const Mock$RewiredStore = Spy.mock(RewiredStore, 'set');
     const Mock$Util = Spy.mock(Util, 'randomColor');
 
-    const getWrapper = (overrides: $Shape<{ ...RewiredOneInputProps }>) =>
+    const getWrapper = (overrides?: $Shape<{ ...RewiredOneInputProps }>) =>
         shallow(<RewiredOneInputContainer value="test-value" color="#abcdef" {...overrides} />);
 
     it('applies value and color to the output', () => {

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Store, type State } from './store';
+import { Store } from './store';
 import { RerenderCounter } from './RerenderCounter';
 
 type BallStoreProps = {| color: string, top: number, left: number |};
@@ -20,8 +20,16 @@ const BallContainer = ({ color, top, left }: BallProps) => (
     </div>
 );
 
-export const Ball = Store.wire<BallStoreProps, BallOwnProps>(BallContainer, (state: State) => ({
-    top: state.ball.position.top,
-    left: state.ball.position.left,
-    color: state.ball.color,
-}));
+export const Ball = Store.wire<BallStoreProps, BallOwnProps>(
+    BallContainer,
+    ({
+        ball: {
+            position: { top, left },
+            color,
+        },
+    }) => ({
+        top,
+        left,
+        color,
+    })
+);

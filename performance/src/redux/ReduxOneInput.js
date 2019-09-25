@@ -12,7 +12,7 @@ const ReduxOneInputContainer = ({ value, updateValue, color }: ReduxOneInputProp
     <div className="one-input">
         <ReduxDisplayValues />
         <input id="redux-input" type="text" style={{ backgroundColor: color }} value={value} onChange={updateValue} />
-        <StressTest.ButtonChangeX inputId="redux-input" times={10000} />
+        <StressTest.ButtonChangeX inputId="redux-input" times={1000} />
     </div>
 );
 

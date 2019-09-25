@@ -8,10 +8,11 @@
 
 Wire your react app as easy as possible...
 
-- A good alternative to `react-redux`
+- A fast and easy alternative for `react-redux`
 - Feels more like react (using internal react state as base model)
-- `flow` typed out of the box
-- very small package size (v2.0.1 -> [849 B gzipped](https://bundlephobia.com/result?p=react-rewired@2.0.1))
+- `TypeScript` support included
+- `flow` support included
+- very small package size (v3.0.0 -> [794 B gzipped](https://bundlephobia.com/result?p=react-rewired@3.0.0))
 - high performance (performance play ground in comparison to `react-redux@7.1.1` is available [here](https://fdc-viktor-luft.github.io/react-rewired/performance/))
 
 ## Introduction
@@ -36,8 +37,8 @@ import { Wired } from 'react-rewired';
 
 const Store = Wired.store({
     num: 12,
-    data: { keys: [] }
-    foo: undefined
+    data: { keys: [] },
+    foo: null
 })
 ```
 You will also have to define the types for your `State` because the
@@ -49,14 +50,14 @@ type DataState = { keys: string[] };
 type State = {
     num: number,
     data: DataState,
-    foo?: string
+    foo: string | null
 };
 
 const data: DataState = { keys: [] }; // you can directly type cast
 const Store = Wired.store<State>({
     num: 12,
     data,
-    foo: undefined
+    foo: null
 })
 ```
 - HINT: Types in value position are still very new, but every flow-parser
@@ -115,40 +116,6 @@ Store.set(state => ({ num: 3 * state.num })); // num = 3 * 13 = 39
 // MyWiredComponent would NOT update after this change
 // because the values of "odd" and "key" did not change
 ```
-Additionally you can perform shallow merges in deeply nested structures
-with `Wired.node`. With it you may mark the provided object to be another
-shallow updatable object. Another example:
-```js
-import { Store, type WiredNode } from 'react-rewired';
-
-type DataState = { keys: string[], foo?: string };
-type State = {
-    num: number,
-    dataAsNode: WiredNode<DataState>,
-    dataAsObject: DataState
-};
-const data: DataState = { keys: [], foo: undefined };
-const store = Wired.store<State>(({
-    num: 12,
-    dataAsNode: Wired.node(data)
-    dataAsObject: data
-}: State))
-```
-Now `dataAsNode` is a wired node, which means that you can do the following:
-```js
-store.set({dataAsNode: { foo: 'bar' }}); // does not affect dataAsNode.keys
-
-store.set({dataAsObject: { foo: 'bar' }}); // flow error because keys were required AND dataAsObject.keys would be lost
-```
-Therefore it is also possible to make nested updated statement like this:
-```js
-// another example for some very complex State
-
-store.set({ data: { user: { login: { email: 'some@mail.com' } } } });
-
-// and this would affect ONLY the email if data, user and login
-// would have been nodes instead of objects.
-```
 If you want to access the data directly e.g. outside any component, you can
 do the following:
 ```js
@@ -157,33 +124,8 @@ const state = Store.get();
 - ATTENTION: Modifications to the returned state can effect your application in
              an unexpected way. Even if you know what you're doing, I do not recommend it.
 
-## Known issues
-First of all I want to mention, that the production functionality is not
-(or at least should not be) affected by any issues and the project is
-still very new. I hope to find soon some solutions for some issues
-related mostly to `flow` issues, which were not even solved for `react-redux`.
-
-- It is necessary for wired **class components** to define the props as exact
-  type. But maybe this is even good, since you should try to always use exact
-  prop types. `flow` itself now tries to establish a new default, that makes all
-  objects rather exact than inexact.
-```js
-class MyComponent extends Component<{| myProp: string |}> { ... }
-```
-- Currently **default props** are not correctly recognized on wired class
-  components. They are ignored since `React$ElementConfig` which contains
-  the logic to calculate the props could not be connected without using
-  flow type inference which would simply detroy everything. That is why
-  `react-redux` types within `flow-typed` does not work properly.
-```js
-class MyComponent extends Component<{| myProp: string |}> {
-    static defaultProps = { myProp: 'defined' };
-}
-```
-- For the time of this writing `enzyme` runs into internal errors, when
-  mounting any `Consumer` or `Provider` elements from the new context API.
-  Therefore you should insert a little snippet into your `setupTests.js`
-  (see `jest` option "setupTestFrameworkScriptFile")
+- To make testing easy even with the context API, you should insert a little snippet into your `setupTests.js`
+  (see `jest` option "setupFilesAfterEnv")
 ```js
 Store.set = (Component, mapStateToProps) => {
     const result = props => <Component {...mapStateToProps(Store.get())} {...props} />;

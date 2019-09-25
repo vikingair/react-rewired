@@ -13,10 +13,6 @@ describe('WiredStore', () => {
                     str: 'here',
                 },
                 array: ['there', 12],
-                node: Wired.node({
-                    not: 'visible',
-                    as: 'node',
-                }),
             }: any) // we need to manipulate flow, because else we can do illegal things in the tests
         );
 
@@ -29,10 +25,6 @@ describe('WiredStore', () => {
                 str: 'here',
             },
             array: ['there', 12],
-            node: Wired.node({
-                not: 'visible',
-                as: 'node',
-            }),
         });
     });
 
@@ -40,7 +32,7 @@ describe('WiredStore', () => {
         const store = getDummyStore();
         const dataBefore = store.get();
 
-        store.set({ unknownKey: 'foobar' });
+        store.set({ unknownKey: 'foobar', num: undefined });
 
         expect(store.get()).not.toBe(dataBefore); // but creates always a new object
         expect(store.get()).toEqual(dataBefore);
@@ -54,10 +46,6 @@ describe('WiredStore', () => {
         expect(store.get()).toEqual({
             array: [1337], // completely new array
             bool: true, // old value
-            node: Wired.node({
-                as: 'new', // new value
-                not: 'visible', // old value (ATTENTION: unknown was ignored, because any node behaves like root)
-            }),
             num: 42, // new value
             obj: { some: 'newObject' }, // completely new object
         });
@@ -66,14 +54,13 @@ describe('WiredStore', () => {
     it('supports functional updates', () => {
         const store = getDummyStore();
 
-        store.set(state => ({ node: { as: 'new ' + state.node.as, unknown: 'ignored' }, some: true }));
+        store.set(({ some, num }) => ({ some: !some, num: num + 1 }));
 
         expect(store.get()).toEqual({
             array: ['there', 12],
             some: true,
             bool: true,
-            node: Wired.node({ as: 'new node', not: 'visible' }),
-            num: 12,
+            num: 13,
             obj: { str: 'here' },
         });
     });

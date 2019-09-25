@@ -5,6 +5,7 @@ import { RewiredApp } from './rewired/RewiredApp';
 import { ReduxApp } from './redux/ReduxApp';
 import { type RouteValue } from './routes';
 import { Navigator } from './Navigator';
+// import { RusApp } from './react-use-sub/RusApp';
 
 type AppProps = {||};
 type AppState = { current: RouteValue };
@@ -28,6 +29,7 @@ class App extends Component<AppProps, AppState> {
                 </div>
                 <div className="redux">
                     <ReduxApp current={current} />
+                    {/*<RusApp current={current} />*/}
                 </div>
             </div>
         );

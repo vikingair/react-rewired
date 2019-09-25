@@ -1,15 +1,14 @@
 // @flow
 
 import { RewiredStore, deeplyNested } from './rewired-store';
-import { Wired } from 'react-rewired';
 
 describe('RewiredStore', () => {
     it('initializes the RewiredStore', () => {
         expect(RewiredStore.get()).toEqual({
             deeplyNested,
-            liveCoding: Wired.node({}),
+            liveCoding: {},
             manyComponents: 0,
-            manyFlat: Wired.node({
+            manyFlat: {
                 a: 0,
                 b: 0,
                 c: 0,
@@ -36,8 +35,8 @@ describe('RewiredStore', () => {
                 x: 0,
                 y: 0,
                 z: 0,
-            }),
-            oneInput: Wired.node({ color: '#eeff8e', value: '' }),
+            },
+            oneInput: { color: '#eeff8e', value: '' },
         });
     });
 

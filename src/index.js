@@ -24,33 +24,18 @@ export type WiredStore<State: Object> = {
         storeToProps: (State) => StoreProps
     ) => React$ComponentType<OwnProps>,
 };
-export type WiredNode<N: Object> = $Shape<N>;
 
 const _symbol = (Symbol && Symbol.for) || String;
-const $$node: any = _symbol('__WIRED_NODE__');
 const $$data: any = _symbol('__WIRED_DATA__');
-
-const node = <N: Object>(data: N): WiredNode<N> => {
-    data[$$node] = true;
-    return data;
-};
 
 // ATTENTION: No keys can be added afterwards. You need at least to initialize them with undefined
 const _update = <State: Object>(p: State, n: Object): State => {
     const r = {};
-    const keys = Object.keys(p);
-    for (let index = 0; index < keys.length; index++) {
-        const key = keys[index];
+    Object.keys(p).forEach((key: string) => {
         const prev = p[key];
         const next = n[key];
-        if (!(key in n) || prev === next) {
-            r[key] = prev;
-        } else if (prev && prev[$$node]) {
-            r[key] = node(_update(prev, next));
-        } else {
-            r[key] = next;
-        }
-    }
+        r[key] = next === undefined || !(key in n) ? prev : next;
+    });
     return (r: any);
 };
 
@@ -100,4 +85,4 @@ const rootFor = <State: Object>(Context: any, Store: WiredStore<State>): Root =>
         render = () => <Context.Provider value={this.state.s}>{this.props.children}</Context.Provider>;
     };
 
-export const Wired = { store, node };
+export const Wired = { store };

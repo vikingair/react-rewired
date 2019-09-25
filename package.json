@@ -1,10 +1,11 @@
 {
   "name": "react-rewired",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "private": false,
   "description": "Wire your react app as easy as possible",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "types": "src/index.d.ts",
   "files": [
     "dist/cjs",
     "dist/esm",

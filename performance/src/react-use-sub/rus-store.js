@@ -1,6 +1,6 @@
 // @flow
 
-import { Wired } from 'react-rewired';
+import { createStore } from 'react-use-sub';
 
 type OneInputState = {| value: string, color: string |};
 const initialOneInput = { value: '', color: '#eeff8e' };
@@ -23,7 +23,7 @@ type State = {|
     manyComponents: number,
 |};
 
-export const RewiredStore = Wired.store<State>({
+const [useRusSub, RusStore] = createStore<State>({
     oneInput: initialOneInput,
     deeplyNested,
     manyFlat: initialManyFlat,
@@ -31,4 +31,5 @@ export const RewiredStore = Wired.store<State>({
     manyComponents: 0,
 });
 
-window.RewiredStore = RewiredStore;
+export { useRusSub, RusStore };
+window.RewiredStore = RusStore;

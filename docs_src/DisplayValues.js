@@ -15,7 +15,7 @@ const _htmlForObject = (o: Object, firstValueOverride: boolean = true): string =
     let result = '';
     let firstValue = firstValueOverride;
     for (let key in o) {
-        if (o.hasOwnProperty(key)) {
+        if (o['hasOwnProperty'](key)) {
             const value = o[key];
             if (!firstValue) {
                 result += ',</p><p>';
@@ -64,7 +64,5 @@ const DisplayValuesContainer = ({ data }: DisplayValuesProps) => (
 
 export const DisplayValues = Store.wire<DisplayValuesStoreProps, DisplayValuesOwnProps>(
     DisplayValuesContainer,
-    state => ({
-        data: state,
-    })
+    state => ({ data: state })
 );

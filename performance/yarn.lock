@@ -8517,10 +8517,10 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.9.0"
     scheduler "^0.15.0"
 
-react-use-sub@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-use-sub/-/react-use-sub-0.0.2.tgz#9bc8c37c907aa52aa1cafad07462d96df0569de6"
-  integrity sha512-Xs8h9/EDowCgg8a9c8WnIdFaV64f/I0TsOleBVg6oZO3smtPc0xYRJlZ1MlYzhKE0rxcuYFh67Np9a1F02km8A==
+react-use-sub@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-use-sub/-/react-use-sub-0.1.0.tgz#5873228de0d12293d6fd0be031433ff4543f2f35"
+  integrity sha512-OudDQS80V04MTGLseE9TBaDBZhF691FARjJm49v3b6gEln3GFPgjH9aSa+qsLCTzUjzQpBUjFvTn0Ot/vamCUA==
 
 react@^16.9.0:
   version "16.9.0"

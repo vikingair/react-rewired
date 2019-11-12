@@ -12,7 +12,7 @@ Wire your react app as easy as possible...
 - Feels more like react (using internal react state as base model)
 - `TypeScript` support included
 - `flow` support included
-- very small package size (v3.0.0 -> [794 B gzipped](https://bundlephobia.com/result?p=react-rewired@3.0.0))
+- very small package size (v3.0.2 -> [836 B gzipped](https://bundlephobia.com/result?p=react-rewired@3.0.2))
 - high performance (performance play ground in comparison to `react-redux@7.1.1` is available [here](https://fdc-viktor-luft.github.io/react-rewired/performance/))
 
 ## Introduction
@@ -129,8 +129,9 @@ const state = Store.get();
 ```js
 Store.set = (Component, mapStateToProps) => {
     const result = props => <Component {...mapStateToProps(Store.get())} {...props} />;
-    result.displayName = `Wired(${Component.name})`;
+    result.displayName = `Wired(${Component.displayName || Component.name || ''})`;
     return result;
+}
 ```
 
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg

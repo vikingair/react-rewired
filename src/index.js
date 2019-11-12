@@ -56,10 +56,18 @@ const store = <State: Object>(initialData: State): WiredStore<State> => {
             storeToProps: State => StoreProps
         ): React$ComponentType<OwnProps> => {
             const MC = (React: any).memo(Component);
-            const WiredUpdater = (p: OwnProps) => (
-                <Context.Consumer>{store => <MC {...storeToProps(store)} {...p} />}</Context.Consumer>
-            );
-            return WiredUpdater; // name for react dev tool
+            // name for react dev tool and for other purposes
+            // the usage of the surrounding brackets will make "Wired" a flag in dev tools
+            // we favor to use the "displayName" over the real "name" but fallback for anonymous functions
+            // to an empty string within the brackets, since the React.memo HOC does the same
+            const name = `Wired(${Component.displayName || Component.name || ''})`;
+            const obj = {
+                [name]: (p: OwnProps) => (
+                    <Context.Consumer>{store => <MC {...storeToProps(store)} {...p} />}</Context.Consumer>
+                ),
+            };
+            obj[name].displayName = name;
+            return obj[name];
         },
     };
     s.root = rootFor(Context, s);

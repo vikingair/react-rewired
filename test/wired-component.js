@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { Spy } from 'spy4js';
 import { Wired } from '../src';
 
@@ -83,5 +83,125 @@ describe('WiredComponent', () => {
         wrapper.unmount();
         DummyStore.set({ testProp: 'bar' });
         setState.wasNotCalled();
+    });
+
+    it('displays the wrapped name for the HOC based on the wrapped component', () => {
+        const DummyStore = Wired.store({ testProp: 'here' });
+        const MyFancyStuff = ({ myProp }) => <div className={myProp} />;
+        const WiredComponent = DummyStore.wire(MyFancyStuff, s => ({ myProp: s.testProp }));
+        expect(
+            shallow(
+                <DummyStore.root>
+                    <WiredComponent />
+                </DummyStore.root>
+            )
+        ).toMatchInlineSnapshot(`
+            <ContextProvider
+              value={
+                Object {
+                  "testProp": "here",
+                }
+              }
+            >
+              <Wired(MyFancyStuff) />
+            </ContextProvider>
+        `);
+
+        expect(
+            mount(
+                <DummyStore.root>
+                    <WiredComponent />
+                </DummyStore.root>
+            )
+        ).toMatchInlineSnapshot(`
+            <Memo(MyFancyStuff)
+              myProp="here"
+            >
+              <div
+                className="here"
+              />
+            </Memo(MyFancyStuff)>
+        `);
+    });
+
+    it('displays the wrapped name and favors the display name of the wrapped component', () => {
+        const DummyStore = Wired.store({ testProp: 'here' });
+        const MyFancyStuff = ({ myProp }) => <div className={myProp} />;
+        MyFancyStuff.displayName = 'FOO';
+        const WiredComponent = DummyStore.wire(MyFancyStuff, s => ({ myProp: s.testProp }));
+        expect(
+            shallow(
+                <DummyStore.root>
+                    <WiredComponent />
+                </DummyStore.root>
+            )
+        ).toMatchInlineSnapshot(`
+            <ContextProvider
+              value={
+                Object {
+                  "testProp": "here",
+                }
+              }
+            >
+              <Wired(FOO) />
+            </ContextProvider>
+        `);
+
+        expect(
+            mount(
+                <DummyStore.root>
+                    <WiredComponent />
+                </DummyStore.root>
+            )
+        ).toMatchInlineSnapshot(`
+            <Memo(FOO)
+              myProp="here"
+            >
+              <div
+                className="here"
+              />
+            </Memo(FOO)>
+        `);
+    });
+
+    it('displays a fallback wrapped name', () => {
+        const DummyStore = Wired.store({ testProp: 'here' });
+        const WiredComponent = DummyStore.wire(
+            ({ myProp }) => <div className={myProp} />,
+            s => ({ myProp: s.testProp })
+        );
+        expect(
+            shallow(
+                <DummyStore.root>
+                    <WiredComponent />
+                </DummyStore.root>
+            )
+        ).toMatchInlineSnapshot(`
+            <ContextProvider
+              value={
+                Object {
+                  "testProp": "here",
+                }
+              }
+            >
+              <Wired() />
+            </ContextProvider>
+        `);
+
+        expect(
+            mount(
+                <DummyStore.root>
+                    <WiredComponent />
+                </DummyStore.root>
+            )
+        ).toMatchInlineSnapshot(`
+            <Memo()
+              myProp="here"
+            >
+              <div
+                className="here"
+              />
+            </Memo()>
+        `);
     });
 });

@@ -10,14 +10,14 @@ import React from 'react';
 type Combined<StoreProps, OwnProps> = $Exact<{ ...StoreProps, ...OwnProps }>;
 export type UnwiredComponent<StoreProps, OwnProps> = React$ComponentType<Combined<StoreProps, OwnProps>>;
 
-export type SetFunctionParam<S> = $Shape<S> | (S => $Shape<S>);
+export type SetFunctionParam<S> = $Shape<S> | ((S) => $Shape<S>);
 type SetFunction<S> = (SetFunctionParam<S>) => void;
 type RootProps = {| children: React$Element<*> |};
 type Root = React$ComponentType<RootProps>;
 
 export type WiredStore<State: Object> = {
     set: SetFunction<State>,
-    get: void => State,
+    get: (void) => State,
     root: Root,
     wire: <StoreProps: Object, OwnProps: Object>(
         component: UnwiredComponent<StoreProps, OwnProps>,
@@ -53,7 +53,7 @@ const store = <State: Object>(initialData: State): WiredStore<State> => {
         root: ((undefined: any): Root), // little flow hack
         wire: <StoreProps: Object, OwnProps: Object>(
             Component: UnwiredComponent<StoreProps, OwnProps>,
-            storeToProps: State => StoreProps
+            storeToProps: (State) => StoreProps
         ): React$ComponentType<OwnProps> => {
             const MC = (React: any).memo(Component);
             // name for react dev tool and for other purposes
@@ -63,7 +63,7 @@ const store = <State: Object>(initialData: State): WiredStore<State> => {
             const name = `Wired(${Component.displayName || Component.name || ''})`;
             const obj = {
                 [name]: (p: OwnProps) => (
-                    <Context.Consumer>{store => <MC {...storeToProps(store)} {...p} />}</Context.Consumer>
+                    <Context.Consumer>{(store) => <MC {...storeToProps(store)} {...p} />}</Context.Consumer>
                 ),
             };
             obj[name].displayName = name;
